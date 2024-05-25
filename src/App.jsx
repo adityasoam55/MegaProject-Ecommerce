@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import ProductDetails from './ProductDetails';
 import NotFound from './NotFound';
 import NavBar from './NavBar';
+import Login from './Login';
 
 function App() {
   const path = window.location.pathname;
@@ -35,6 +36,8 @@ function App() {
           <Route path='/' element={<ProductListPage />} ></Route>
           <Route path="/products/:id/" element={<ProductDetails onAddToCart={handleAddToCart} />} ></Route>
           <Route path="*" element={<NotFound />} />
+          <Route path='/login/' element={<Login />}></Route>
+          {/* <Route path='/passwordreset' element={<PasswrodReset />}></Route> */}
         </Routes>
       </div>
     </div>
