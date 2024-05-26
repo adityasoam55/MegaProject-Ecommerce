@@ -5,6 +5,8 @@ import ProductDetails from './ProductDetails';
 import NotFound from './NotFound';
 import NavBar from './NavBar';
 import Login from './Login';
+import Signup from './SignUp';
+import PasswrodReset from './PasswordReset';
 
 function App() {
   const path = window.location.pathname;
@@ -36,12 +38,13 @@ function App() {
           <Route path='/' element={<ProductListPage />} ></Route>
           <Route path="/products/:id/" element={<ProductDetails onAddToCart={handleAddToCart} />} ></Route>
           <Route path="*" element={<NotFound />} />
-          <Route path='/login/' element={<Login />}></Route>
-          {/* <Route path='/passwordreset' element={<PasswrodReset />}></Route> */}
+          <Route path="/signup/" element={<Signup />}></Route>
+          <Route path="/login/" element={<Login />}></Route>
+          <Route path='/passwordreset' element={<PasswrodReset />}></Route>
         </Routes>
       </div>
     </div>
   );
 }
 
-export default App
+export default App;
