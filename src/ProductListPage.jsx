@@ -1,43 +1,62 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ProductList from './ProductList';
 import { getProductList } from './api';
 
 function ProductListPage() {
- 
-    const [query, setQuery] = useState("");
+
+  const [query, setQuery] = useState("");
   const [sort, setSort] = useState("default")
   const [productList, setProductList] = useState([]);
 
-  useEffect(function(){
+  useEffect(function () {
     const xyz = getProductList();
 
-    xyz.then(function(products){
+    xyz.then(function (products) {
       setProductList(products);
     })
-  },[])
-   
- let newData = productList.filter(function (item) {
+  }, [])
+
+  let newData = productList.filter(function (item) {
     const title = item.title.toLowerCase();
 
     return title.indexOf(query) != -1;
   })
 
+
   if (sort == "price") {
     newData.sort(function (x, y) {
       return x.price - y.price;
     })
-  } else if(sort == "name"){
-    newData.sort(function(x,y){
+  } else if (sort == "name") {
+    newData.sort(function (x, y) {
       return x.title < y.title ? -1 : 1;
     })
   }
 
+
+  // const handleSearch = useCallback(
+  //   function (e) {
+  //     console.log("handle search running");
+  //     const newQuery = e.target.value.toLowerCase();
+  //     setQuery(newQuery);
+  //   }, [query]
+  // );
+
   function handleSearch(e) {
+    console.log("handle search running");
     const newQuery = e.target.value.toLowerCase();
     setQuery(newQuery);
   }
 
+  // const handleSort = useCallback(
+  //   function (e) {
+  //     console.log("sorting running");
+  //     setSort(e.target.value);
+  //   }, [sort]
+  // );
+
   function handleSort(e) {
+    console.log("sorting running");
     setSort(e.target.value);
   }
 
