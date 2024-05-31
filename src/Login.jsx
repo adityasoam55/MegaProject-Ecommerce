@@ -2,7 +2,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import React from "react";
 import { Link } from "react-router-dom";
-import Input from "./Input";
+import { FormikInput } from "./Input";
 
 function Login() {
   function callLoginApi(values) {
@@ -32,7 +32,7 @@ function Login() {
            <span className="text-xs mb-1">don't have a account? <Link to="/signup" className="text-xs text-blue-700">
             SignUp
           </Link></span> 
-          <Input
+          <FormikInput
             id="email"
             type="email"
             name="email"
@@ -40,7 +40,7 @@ function Login() {
             required
           />
 
-          <Input
+          <FormikInput
             id="password"
             type="text"
             name="password"

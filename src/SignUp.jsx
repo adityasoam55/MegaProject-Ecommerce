@@ -2,7 +2,7 @@ import { Formik, Form } from 'formik';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
-import Input from './Input';
+import { FormikInput } from './Input';
 
 function Signup() {
 
@@ -32,35 +32,35 @@ function Signup() {
                     <Form className='flex flex-col items-center'>
                         <h3 className='font-bold mb-1'>SignUp to codeAdi.io</h3>
                         <Link to='/login/' className='text-sm mb-1'>Already have an Account? <span className='text-blue-600'>Login</span></Link>
-                        <Input
+                        <FormikInput
                             type="text"
                             placeholder="Full Name"
                             name="fullname"
                             id="fullname"
                             required
                         />
-                        <Input
+                        <FormikInput
                             type='text'
                             placeholder='Phone'
                             name='phone'
                             id="phone"
                             required
                         />
-                        <Input
+                        <FormikInput
                             type='email'
                             placeholder='Email'
                             name='email'
                             id='email'
                             required
                         />
-                        <Input
+                        <FormikInput
                             type="password"
                             placeholder='Password'
                             name='password'
                             id="password"
                             required
                         />
-                        <Input
+                        <FormikInput
                             type="password"
                             placeholder='Confirm Password'
                             name='confirmPassword'

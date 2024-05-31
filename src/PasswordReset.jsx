@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Input from './Input';
 import { Formik, Form } from 'formik';
 import * as Yup from "yup";
+import { FormikInput } from './Input';
 
 function PasswrodReset() {
 
@@ -26,13 +26,13 @@ function PasswrodReset() {
                 <Formik initialValues={initialValues} onSubmit={callResetPassword} validationSchema={resetPasswordSchema} validateOnMount>
                     <Form className='flex flex-col items-center'>
                         <h3 className='font-medium mb-2'>SetUp New Password</h3>
-                        <Input
+                        <FormikInput
                             id="newpassword"
                             name="newpassword"
                             type='text'
                             placeholder='New Password'
                         />
-                        <Input
+                        <FormikInput
                             id="re-enter-password"
                             name="re-enter-password"
                             type="text"
