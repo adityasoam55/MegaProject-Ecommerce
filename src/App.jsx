@@ -7,6 +7,7 @@ import NavBar from './NavBar';
 import Login from './Login';
 import Signup from './SignUp';
 import PasswrodReset from './PasswordReset';
+import CartPage from './CartPage';
 
 function App() {
   const path = window.location.pathname;
@@ -36,6 +37,7 @@ function App() {
       <div className='grow'>
         <Routes>
           <Route path='/' element={<ProductListPage />} ></Route>
+          <Route path="/cartpage/" element={<CartPage cart={cart} />}></Route>
           <Route path="/products/:id/" element={<ProductDetails onAddToCart={handleAddToCart} />} ></Route>
           <Route path="*" element={<NotFound />} />
           <Route path="/signup/" element={<Signup />}></Route>

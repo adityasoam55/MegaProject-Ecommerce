@@ -13,7 +13,7 @@ function NavBar({ productCount }) {
                 <Link to="/login">Login</Link>
             </div>
             <div className='relative flex justify-center'>
-                <span className='text-white text-4xl'><PiBagLight /></span>
+                <Link to="/cartpage" className='text-white text-4xl z-10'><PiBagLight /></Link>
                 <span className='absolute top-2'>{productCount}</span>
             </div>
         </div>
