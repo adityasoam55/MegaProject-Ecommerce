@@ -7,11 +7,9 @@ import CartList from "./CartList";
 function CartPage({ cart, updateCart }) {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
-  const productsIds = Object.keys(cart);
-
-
-
+  
   useEffect(() => {
+    const productsIds = Object.keys(cart);
     const MyProductPromises = productsIds.map(function (id) {
       return getProductData(id);
     });
