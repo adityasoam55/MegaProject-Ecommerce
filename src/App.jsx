@@ -8,6 +8,7 @@ import Login from './Login';
 import Signup from './SignUp';
 import PasswrodReset from './PasswordReset';
 import CartPage from './CartPage';
+import Test from './Test';
 
 function App() {
   const path = window.location.pathname;
@@ -39,7 +40,7 @@ function App() {
   return (
     <div className='h-screen w-screen overflow-scroll flex flex-col'>
       <NavBar productCount={totalCount} />
-      <div className='grow'>
+      <div className='grow bg-gray-100'>
         <Routes>
           <Route path='/' element={<ProductListPage />} ></Route>
           <Route path="/cartpage/" element={<CartPage cart={cart} updateCart={updateCart} />}></Route>
@@ -48,6 +49,7 @@ function App() {
           <Route path="/signup/" element={<Signup />}></Route>
           <Route path="/login/" element={<Login />}></Route>
           <Route path='/passwordreset' element={<PasswrodReset />}></Route>
+          {/* <Route path="test" element={<Test />} /> */}
         </Routes>
       </div>
     </div>
