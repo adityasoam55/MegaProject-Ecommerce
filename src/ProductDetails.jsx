@@ -40,7 +40,7 @@ function ProductDetails({ onAddToCart }) {
 
     return (
         <div className='flex flex-col items-center justify-center py-12 h-full'>
-            <Link to="/" className='text-blue-500 mr-2'>Go back</Link>
+            <Link to="/" className='text-blue-500 mr-2 hover:underline'>Go back</Link>
             <div className='bg-white m-1 px-2 py-1 rounded-md w-80 flex flex-col items-center'>
                 <div className='w-full h-60 '>
                     <img src={product.thumbnail} alt="product photo" className='w-full h-full rounded-md' />
@@ -57,15 +57,15 @@ function ProductDetails({ onAddToCart }) {
                         value={count}
                         onChange={handleCountChange}
                     />
-                    <button className='border border-black px-2 rounded-md outline-none bg-red-400 text-white'
+                    <button className='border border-black bg-tomato-default px-2 rounded-md outline-none text-white'
                         onClick={handleButtonClick}
-                    >Add</button>
+                    >Add to cart</button>
                 </div>
             </div>
 
             <div className='flex gap-5'>
-                {id > 1 && <Link to={"/products/" + (id - 1)} className='text-blue-500'>Prev</Link>}
-                {id < 100 && <Link to={"/products/" + (id + 1)} className='text-blue-500'>Next</Link>}
+                {id > 1 && <Link to={"/products/" + (id - 1)} className='text-blue-500 hover:underline'>Prev</Link>}
+                {id < 100 && <Link to={"/products/" + (id + 1)} className='text-blue-500 hover:underline'>Next</Link>}
             </div>
         </div>
     );

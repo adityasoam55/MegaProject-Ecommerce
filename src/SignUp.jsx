@@ -27,11 +27,11 @@ function Signup() {
 
     return (
         <div className='w-full h-screen flex justify-center items-center'>
-            <div className='flex flex-col items-center w-80 gap-2 bg-gray-200 py-4 rounded-lg'>
+            <div className='flex flex-col items-center w-80 gap-2 bg-white py-4 rounded-lg'>
                 <Formik initialValues={initialValues} onSubmit={signupApicall} validationSchema={SignupSchema} validateOnMount >
                     <Form className='flex flex-col items-center'>
-                        <h3 className='font-bold mb-1'>SignUp to codeAdi.io</h3>
-                        <Link to='/login/' className='text-sm mb-1'>Already have an Account? <span className='text-blue-600'>Login</span></Link>
+                        <h3 className='font-bold mb-1'>SignUp to Amazon.org</h3>
+                        <Link to='/login/' className='text-sm mb-1'>Already have an Account? <span className='text-blue-600 hover:underline'>Login</span></Link>
                         <FormikInput
                             type="text"
                             placeholder="Full Name"
@@ -69,13 +69,13 @@ function Signup() {
 
                         />
                         <div className='mt-2'>
-                            <button className='bg-blue-600 text-white rounded-md px-2 py-0.5 mr-4'
+                            <button className='border border-black bg-tomato-default text-white rounded-md px-2 py-0.5 mr-4'
                                 type='button'
                             // onClick={resetForm}
                             >
                                 Reset</button>
 
-                            <button className='bg-blue-600 text-white rounded-md px-2 py-0.5 disabled:bg-blue-400'
+                            <button className='border border-black bg-tomato-default text-white rounded-md px-2 py-0.5 disabled:bg-blue-400'
                                 type='submit'
                             // onClick={handleSubmit}
                             // disabled={!isValid}

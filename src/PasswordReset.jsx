@@ -22,7 +22,7 @@ function PasswrodReset() {
 
     return (
         <div className='w-full h-screen flex justify-center items-center'>
-            <div className='flex flex-col items-center w-60 gap-2 bg-gray-200 py-4 rounded-lg'>
+            <div className='flex flex-col items-center w-60 gap-2 bg-white py-4 rounded-lg'>
                 <Formik initialValues={initialValues} onSubmit={callResetPassword} validationSchema={resetPasswordSchema} validateOnMount>
                     <Form className='flex flex-col items-center'>
                         <h3 className='font-medium mb-2'>SetUp New Password</h3>
@@ -39,13 +39,13 @@ function PasswrodReset() {
                             placeholder='Re-Enter Password'
                         />
                         <div>
-                            <button className='bg-blue-600 text-white rounded-md px-2 py-0.5 my-2'
+                            <button className='border border-black bg-tomato-default text-white rounded-md px-2 py-0.5 my-2'
                                 type='submit'
                                 onClick={callResetPassword}
                             >
                                 Reset Now</button>
                         </div>
-                        <Link className='text-sm text-blue-600' to="/login/">Go back to Login page?</Link>
+                        <Link className='text-sm text-blue-600 hover:underline' to="/login/">Go back to Login page?</Link>
                     </Form>
                 </Formik>
             </div>

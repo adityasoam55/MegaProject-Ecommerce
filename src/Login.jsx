@@ -27,9 +27,9 @@ function Login() {
         validationSchema={schema}
         validateOnMount
       >
-        <Form className="w-60 bg-gray-200 p-5 rounded-md flex flex-col justify-center items-center">
-            <h2 className="font-bold mb-2">Login to codeAdi.io</h2>
-           <span className="text-xs mb-1">don't have a account? <Link to="/signup" className="text-xs text-blue-700">
+        <Form className="w-60 bg-white p-5 rounded-md flex flex-col justify-center items-center">
+            <h2 className="font-bold mb-2">Login to Amazon.org</h2>
+           <span className="text-xs mb-1">don't have a account? <Link to="/signup" className="text-xs text-blue-700 hover:underline">
             SignUp
           </Link></span> 
           <FormikInput
@@ -48,22 +48,22 @@ function Login() {
             required
           />
 
-          <div className="mb-1">
+          <div className="mb-1 flex gap-2">
             <button
-              className="border bg-blue-500 text-white rounded-md px-2 mt-2"
+              className="border border-black bg-tomato-default text-white rounded-md px-2 mt-2"
               type="button"
               /* onClick={resetForm} */
             >
               Reset
             </button>
             <button
-              className="border bg-blue-500 text-white rounded-md px-2 mt-2"
+              className="border border-black bg-tomato-default text-white rounded-md px-2 mt-2"
               type="submit"
             >
               Login
             </button>
           </div>
-          <Link to="/passwordreset" className="text-xs text-red-700 mt-1">
+          <Link to="/passwordreset" className="text-xs text-red-700 mt-1 hover:underline ">
           Reset Password
           </Link>
         </Form>
