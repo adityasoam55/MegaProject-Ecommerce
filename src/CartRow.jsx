@@ -22,8 +22,8 @@ function CartRow({ product, cart, updateCart, onQuantityChange, quantity }) {
       >
         <RxCross2 />
       </button>
-      <div className="w-12 h-12 self-start max-sm:self-center">
-        <img className="w-full h-full max-sm:w-16 max-sm:h-16 object-cover" src={product.thumbnail} />
+      <div className="w-12 h-12  max-sm:w-16 max-sm:h-16 self-start max-sm:self-center">
+        <img className="w-full h-full object-cover" src={product.thumbnail} />
       </div>
       <span className="grow text-center self-start max-sm:self-center">
         {product.title}
