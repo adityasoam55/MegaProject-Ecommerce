@@ -22,7 +22,7 @@ function CartList({ products, cart, updateCart }) {
 
   return (
     <div className="bg-white">
-      <div className="flex space-x-4 px-4 py-2">
+      <div className="flex space-x-4 px-4 py-2 max-sm:hidden">
         <span className="pl-24 grow text-center">Products</span>
         <span>Price</span>
         <span className="w-14">Quantity</span>
