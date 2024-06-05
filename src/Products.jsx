@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function Products({ title, price, category, img, id }) {
   return (
-    <div className='bg-gray-300 p-2 rounded-md m-2 max-w-xs'>
+    <div className='bg-white p-2 rounded-md m-2 max-w-xs'>
       <div className='w-full aspect-square '>
         <img src={img} alt="product photo" className='w-full h-full rounded-md' />
       </div>
