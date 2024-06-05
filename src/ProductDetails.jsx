@@ -39,9 +39,9 @@ function ProductDetails({ onAddToCart }) {
     }
 
     return (
-        <div className='flex flex-col items-center py-12'>
+        <div className='flex flex-col items-center justify-center py-12 h-full'>
             <Link to="/" className='text-blue-500 mr-2'>Go back</Link>
-            <div className='bg-gray-200 m-1 px-2 py-1 rounded-md w-80 flex flex-col items-center'>
+            <div className='bg-white m-1 px-2 py-1 rounded-md w-80 flex flex-col items-center'>
                 <div className='w-full h-60 '>
                     <img src={product.thumbnail} alt="product photo" className='w-full h-full rounded-md' />
                 </div>

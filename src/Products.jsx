@@ -10,7 +10,7 @@ function Products({ title, price, category, img, id }) {
       <h3>{title}</h3>
       <p className='text-sm'>{category}</p>
       <p className='text-sm text-blue-500'>${price}</p>
-      <Link to={"/products/" + id} className='text-sm font-md text-white'>view details</Link>
+      <Link to={"/products/" + id} className='text-sm font-md text-indigo-400'>view details...</Link>
     </div>
   )
 }
