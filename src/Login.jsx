@@ -1,7 +1,7 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { FormikInput } from "./Input";
 import axios from "axios";
 
@@ -20,6 +20,7 @@ function Login({ setUser }) {
         console.log("Invalid user details, Try again...")
       })
   }
+
 
   const schema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required(),
