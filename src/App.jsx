@@ -10,6 +10,8 @@ import PasswrodReset from './PasswordReset';
 import CartPage from './CartPage';
 import axios from 'axios';
 import AuthRoute from './AuthRoute';
+import Loading from './Loading';
+import UserRoute from './UserRoute';
 
 function App() {
   const [user, setUser] = useState();
@@ -32,10 +34,6 @@ function App() {
       setLoadingUser(false);
     }
   }, [])
-
-  // if(!user){
-  //   return <Navigate to="/login"/>
-  // }
 
   const path = window.location.pathname;
 
@@ -64,7 +62,7 @@ function App() {
   console.log("cart is", cart);
 
   if (loadingUser) {
-    return <div className='bg-red-500 text-white text-3xl'>LoadingUser...</div>
+    return <Loading />
   }
 
   return (
@@ -72,7 +70,7 @@ function App() {
       <NavBar productCount={totalCount} />
       <div className='grow bg-gray-100'>
         <Routes>
-          <Route path='/' element={<ProductListPage />} ></Route>
+          <Route path='/' element={<UserRoute user={user}><ProductListPage /></UserRoute>} ></Route>
           <Route path="/cartpage/" element={<CartPage cart={cart} updateCart={updateCart} />}></Route>
           <Route path="/products/:id/" element={<ProductDetails onAddToCart={handleAddToCart} />} ></Route>
           <Route path="*" element={<NotFound />} />
