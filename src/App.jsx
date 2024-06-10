@@ -11,6 +11,9 @@ import CartPage from './CartPage';
 import Test from './Test';
 
 function App() {
+const [user, setUser] = useState();
+console.log("Logged in user is", user);
+
   const path = window.location.pathname;
 
   const savedDataString = localStorage.getItem("my-cart") || "{}";
@@ -47,7 +50,7 @@ function App() {
           <Route path="/products/:id/" element={<ProductDetails onAddToCart={handleAddToCart} />} ></Route>
           <Route path="*" element={<NotFound />} />
           <Route path="/signup/" element={<Signup />}></Route>
-          <Route path="/login/" element={<Login />}></Route>
+          <Route path="/login/" element={<Login setUser={setUser}/>}></Route>
           <Route path='/passwordreset' element={<PasswrodReset />}></Route>
           {/* <Route path="test" element={<Test />} /> */}
         </Routes>

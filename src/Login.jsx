@@ -3,10 +3,22 @@ import * as Yup from "yup";
 import React from "react";
 import { Link } from "react-router-dom";
 import { FormikInput } from "./Input";
+import axios from "axios";
 
-function Login() {
+function Login({ setUser }) {
   function callLoginApi(values) {
-    console.log("calling login api", values.email, values.password);
+    axios.post("https://myeasykart.codeyogi.io/login",
+      {
+        email: values.email,
+        password: values.password
+      })
+      .then((response) => {
+        const {user, token} = response.data;
+        localStorage.setItem("token", token);
+        setUser(user);
+      }).catch(() => {
+        console.log("Invalid user details, Try again...")
+      })
   }
 
   const schema = Yup.object().shape({
@@ -28,10 +40,10 @@ function Login() {
         validateOnMount
       >
         <Form className="w-60 bg-white p-5 rounded-md flex flex-col justify-center items-center">
-            <h2 className="font-bold mb-2">Login to Amazon.org</h2>
-           <span className="text-xs mb-1">don't have a account? <Link to="/signup" className="text-xs text-blue-700 hover:underline">
+          <h2 className="font-bold mb-2">Login to Amazon.org</h2>
+          <span className="text-xs mb-1">don't have a account? <Link to="/signup" className="text-xs text-blue-700 hover:underline">
             SignUp
-          </Link></span> 
+          </Link></span>
           <FormikInput
             id="email"
             type="email"
@@ -52,7 +64,7 @@ function Login() {
             <button
               className="border border-black bg-tomato-default text-white rounded-md px-2 mt-2"
               type="button"
-              /* onClick={resetForm} */
+            /* onClick={resetForm} */
             >
               Reset
             </button>
@@ -64,7 +76,7 @@ function Login() {
             </button>
           </div>
           <Link to="/passwordreset" className="text-xs text-red-700 mt-1 hover:underline ">
-          Reset Password
+            Reset Password
           </Link>
         </Form>
       </Formik>
