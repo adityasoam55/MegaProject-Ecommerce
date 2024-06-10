@@ -70,7 +70,7 @@ function App() {
       <NavBar productCount={totalCount} />
       <div className='grow bg-gray-100'>
         <Routes>
-          <Route path='/' element={<UserRoute user={user}><ProductListPage /></UserRoute>} ></Route>
+          <Route path='/' element={<UserRoute user={user}><ProductListPage setUser={setUser}/></UserRoute>} ></Route>
           <Route path="/cartpage/" element={<CartPage cart={cart} updateCart={updateCart} />}></Route>
           <Route path="/products/:id/" element={<ProductDetails onAddToCart={handleAddToCart} />} ></Route>
           <Route path="*" element={<NotFound />} />

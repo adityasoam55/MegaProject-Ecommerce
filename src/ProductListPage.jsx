@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ProductList from './ProductList';
 import { getProductList } from './api';
 
-function ProductListPage() {
+function ProductListPage({setUser}) {
 
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("default")
@@ -60,6 +60,11 @@ function ProductListPage() {
     setSort(e.target.value);
   }
 
+  function handleLogout() {
+    localStorage.removeItem("token");
+    setUser(undefined);
+  }
+
   return (
     <div>
       <div className='flex justify-center gap-3 py-2'>
@@ -78,6 +83,9 @@ function ProductListPage() {
           <option value="price">Sort by Price</option>
           <option value="name">Sort by Name</option>
         </select>
+        <button className='bg-tomato-default px-0.5 rounded-md outline-none'
+          onClick={handleLogout}
+        >LogOut</button>
       </div>
       <ProductList products={newData} />
     </div>
