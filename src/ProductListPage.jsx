@@ -62,12 +62,13 @@ function ProductListPage({setUser}) {
 
   function handleLogout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("my-cart")
     setUser(undefined);
   }
 
   return (
-    <div>
-      <div className='flex justify-center gap-3 py-2'>
+    <div >
+      <div className='flex flex-wrap justify-center gap-3 py-2'>
         <input className='border border-black rounded-sm pl-3 outline-none'
           type="text"
           placeholder='search'
