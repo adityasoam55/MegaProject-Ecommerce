@@ -1,26 +1,27 @@
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import React from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FormikInput } from "./Input";
 import axios from "axios";
+import withUser from "./withUser";
 
 function Login({ setUser }) {
   function callLoginApi(values) {
-    axios.post("https://myeasykart.codeyogi.io/login",
-      {
-        email: values.email,
-        password: values.password
-      })
-      .then((response) => {
-        const {user, token} = response.data;
-        localStorage.setItem("token", token);
-        setUser(user);
-      }).catch(() => {
-        console.log("Invalid user details, Try again...")
-      })
-  }
-
+      axios
+        .post("https://myeasykart.codeyogi.io/login", {
+          email: values.email,
+          password: values.password,
+        })
+        .then((response) => {
+          const { user, token } = response.data;
+          localStorage.setItem("token", token);
+          setUser(user);
+        })
+        .catch(() => {
+          console.log("Invalid Login details. Please try again");
+        });
+    }
 
   const schema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required(),
@@ -85,4 +86,4 @@ function Login({ setUser }) {
   );
 }
 
-export default Login;
+export default withUser(Login);

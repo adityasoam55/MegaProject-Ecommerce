@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ProductList from './ProductList';
 import { getProductList } from './api';
+import withUser from './withUser';
 
 function ProductListPage({setUser}) {
 
@@ -93,4 +94,4 @@ function ProductListPage({setUser}) {
   )
 }
 
-export default ProductListPage;
+export default withUser(ProductListPage);

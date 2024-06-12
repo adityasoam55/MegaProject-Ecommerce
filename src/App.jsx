@@ -13,6 +13,7 @@ import AuthRoute from './AuthRoute';
 import Loading from './Loading';
 import UserRoute from './UserRoute';
 
+export const UserContext = React.createContext();
 
 function App() {
   const [user, setUser] = useState();
@@ -68,19 +69,21 @@ function App() {
 
   return (
     <div className='h-screen w-screen overflow-scroll flex flex-col'>
-      <NavBar productCount={totalCount} />
-      <div className='grow bg-gray-100'>
-        <Routes>
-          <Route path='/' element={<UserRoute user={user}><ProductListPage setUser={setUser}/></UserRoute>} ></Route>
-          <Route path="/cartpage/" element={<CartPage cart={cart} updateCart={updateCart} />}></Route>
-          <Route path="/products/:id/" element={<ProductDetails onAddToCart={handleAddToCart} />} ></Route>
-          <Route path="*" element={<NotFound />} />
-          <Route path="/signup/" element={<Signup />}></Route>
-          <Route path="/login/" element={<AuthRoute user={user}><Login setUser={setUser} /></AuthRoute>}></Route>
-          <Route path='/passwordreset' element={<PasswrodReset />}></Route>
-          {/* <Route path="test" element={<Test />} /> */}
-        </Routes>
-      </div>
+      <UserContext.Provider value ={{ user, setUser }}>
+        <NavBar productCount={totalCount} />
+        <div className='grow bg-gray-100'>
+          <Routes>
+            <Route path='/' element={<UserRoute ><ProductListPage /></UserRoute>} ></Route>
+            <Route path="/cartpage/" element={<CartPage cart={cart} updateCart={updateCart} />}></Route>
+            <Route path="/products/:id/" element={<ProductDetails onAddToCart={handleAddToCart} />} ></Route>
+            <Route path="*" element={<NotFound />} />
+            <Route path="/signup/" element={<Signup />}></Route>
+            <Route path="/login/" element={<AuthRoute user={user}><Login /></AuthRoute>}></Route>
+            <Route path='/passwordreset' element={<PasswrodReset />}></Route>
+            {/* <Route path="test" element={<Test />} /> */}
+          </Routes>
+        </div>
+      </UserContext.Provider>
     </div>
   );
 }
