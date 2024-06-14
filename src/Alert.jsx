@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { CiCircleCheck } from "react-icons/ci";
 import { MdOutlineDangerous } from "react-icons/md";
-import withAlert from "./withAlert";
+import { withAlert } from "./withProvider";
 
 const themeMap = {
     success: {

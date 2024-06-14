@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ProductList from './ProductList';
 import { getProductList } from './api';
-import withUser from './withUser';
+import { withUser } from "./withProvider";
 
 function ProductListPage({setUser}) {
 

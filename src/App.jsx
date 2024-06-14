@@ -12,10 +12,8 @@ import axios from 'axios';
 import AuthRoute from './AuthRoute';
 import Loading from './Loading';
 import UserRoute from './UserRoute';
+import { UserContext, AlertContext } from './Contexts';
 import Alert from './Alert';
-
-export const UserContext = React.createContext();
-export const AlertContext = React.createContext(); 
 
 function App() {
   const [user, setUser] = useState();

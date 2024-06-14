@@ -4,8 +4,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FormikInput } from "./Input";
 import axios from "axios";
-import withUser from "./withUser";
-import withAlert from "./withAlert";
+import { withUser } from "./withProvider";
+import { withAlert } from "./withProvider";
 
 function Login({ setUser, setAlert }) {
   function callLoginApi(values) {
