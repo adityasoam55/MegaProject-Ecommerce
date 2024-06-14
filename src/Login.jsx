@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 import { FormikInput } from "./Input";
 import axios from "axios";
 import withUser from "./withUser";
+import withAlert from "./withAlert";
 
-function Login({ setUser }) {
+function Login({ setUser, setAlert }) {
   function callLoginApi(values) {
       axios
         .post("https://myeasykart.codeyogi.io/login", {
@@ -19,13 +20,13 @@ function Login({ setUser }) {
           setUser(user);
         })
         .catch(() => {
-          console.log("Invalid Login details. Please try again");
+          setAlert({ type: "error", message: "Invalid Login details. Please try again"});
         });
     }
 
   const schema = Yup.object().shape({
     email: Yup.string().email("Invalid email").required(),
-    password: Yup.string().required("Password is required").min(8),
+    password: Yup.string().required("Password is required").min(6),
   });
 
   const initialValues = {
@@ -86,4 +87,4 @@ function Login({ setUser }) {
   );
 }
 
-export default withUser(Login);
+export default withAlert(withUser(Login));

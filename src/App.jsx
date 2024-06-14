@@ -12,14 +12,21 @@ import axios from 'axios';
 import AuthRoute from './AuthRoute';
 import Loading from './Loading';
 import UserRoute from './UserRoute';
+import Alert from './Alert';
 
 export const UserContext = React.createContext();
+export const AlertContext = React.createContext(); 
 
 function App() {
   const [user, setUser] = useState();
   const [loadingUser, setLoadingUser] = useState(true);
-  console.log("Logged in user is", user);
+  const [alert, setAlert] = useState();
 
+function removeAlert(){
+  setAlert(undefined);
+}
+
+  console.log("Logged in user is", user);
   const token = localStorage.getItem("token");
 
   useEffect(function () {
@@ -70,6 +77,8 @@ function App() {
   return (
     <div className='h-screen w-screen overflow-scroll flex flex-col'>
       <UserContext.Provider value ={{ user, setUser }}>
+      <AlertContext.Provider value ={{ alert, setAlert, removeAlert }}>
+        <Alert />
         <NavBar productCount={totalCount} />
         <div className='grow bg-gray-100'>
           <Routes>
@@ -83,6 +92,7 @@ function App() {
             {/* <Route path="test" element={<Test />} /> */}
           </Routes>
         </div>
+      </AlertContext.Provider>
       </UserContext.Provider>
     </div>
   );
