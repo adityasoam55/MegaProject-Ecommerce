@@ -8,40 +8,13 @@ import Login from './Login';
 import Signup from './SignUp';
 import PasswrodReset from './PasswordReset';
 import CartPage from './CartPage';
-import axios from 'axios';
 import AuthRoute from './AuthRoute';
-import Loading from './Loading';
 import UserRoute from './UserRoute';
-import { UserContext, AlertContext } from './Contexts';
 import Alert from './Alert';
+import UserProvider from './providers/UserProvider';
+import AlertProvider from './providers/AlertProvider';
 
 function App() {
-  const [user, setUser] = useState();
-  const [loadingUser, setLoadingUser] = useState(true);
-  const [alert, setAlert] = useState();
-
-function removeAlert(){
-  setAlert(undefined);
-}
-
-  console.log("Logged in user is", user);
-  const token = localStorage.getItem("token");
-
-  useEffect(function () {
-    if (token) {
-      axios.get("https://myeasykart.codeyogi.io/me", {
-        headers: {
-          authorization: token,
-        }
-      }).then((response) => {
-        setUser(response.data);
-        setLoadingUser(false);
-      })
-    } else {
-      setLoadingUser(false);
-    }
-  }, [])
-
   const path = window.location.pathname;
 
   const savedDataString = localStorage.getItem("my-cart") || "{}";
@@ -68,14 +41,10 @@ function removeAlert(){
   }, 0);
   console.log("cart is", cart);
 
-  if (loadingUser) {
-    return <Loading />
-  }
-
   return (
     <div className='h-screen w-screen overflow-scroll flex flex-col'>
-      <UserContext.Provider value ={{ user, setUser }}>
-      <AlertContext.Provider value ={{ alert, setAlert, removeAlert }}>
+      <UserProvider>
+      <AlertProvider>
         <Alert />
         <NavBar productCount={totalCount} />
         <div className='grow bg-gray-100'>
@@ -85,13 +54,13 @@ function removeAlert(){
             <Route path="/products/:id/" element={<ProductDetails onAddToCart={handleAddToCart} />} ></Route>
             <Route path="*" element={<NotFound />} />
             <Route path="/signup/" element={<Signup />}></Route>
-            <Route path="/login/" element={<AuthRoute user={user}><Login /></AuthRoute>}></Route>
+            <Route path="/login/" element={<AuthRoute ><Login /></AuthRoute>}></Route>
             <Route path='/passwordreset' element={<PasswrodReset />}></Route>
             {/* <Route path="test" element={<Test />} /> */}
           </Routes>
         </div>
-      </AlertContext.Provider>
-      </UserContext.Provider>
+      </AlertProvider>
+      </UserProvider>
     </div>
   );
 }
