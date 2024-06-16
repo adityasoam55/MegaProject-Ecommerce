@@ -9,18 +9,21 @@ function ProductListPage({ setUser }) {
   const [sort, setSort] = useState("default")
   const [productList, setProductList] = useState([]);
   const [skip, setSkip] = useState(0);
+  const [pages, setPages] = useState();
 
   useEffect(function () {
     let sortBy;
 
-    if(sort == "title"){
+    if (sort == "title") {
       sortBy = "title";
-    } else if(sort == "price"){
+    } else if (sort == "price") {
       sortBy = "price";
     }
 
-    getProductList(sortBy, skip).then(function (products) {
-      setProductList(products);
+    getProductList(sortBy, skip).then(function (body) {
+      let p = Math.ceil(body.total / 30);
+      setPages(p);
+      setProductList(body.products);
     })
   }, [sort, skip])
 
@@ -42,13 +45,6 @@ function ProductListPage({ setUser }) {
   // }
 
 
-  // const handleSearch = useCallback(
-  //   function (e) {
-  //     console.log("handle search running");
-  //     const newQuery = e.target.value.toLowerCase();
-  //     setQuery(newQuery);
-  //   }, [query]
-  // );
 
   function handleSearch(e) {
     // console.log("handle search running");
@@ -56,12 +52,6 @@ function ProductListPage({ setUser }) {
     setQuery(newQuery);
   }
 
-  // const handleSort = useCallback(
-  //   function (e) {
-  //     console.log("sorting running");
-  //     setSort(e.target.value);
-  //   }, [sort]
-  // );
 
   function handleSort(e) {
     // console.log("sorting running");
@@ -98,37 +88,17 @@ function ProductListPage({ setUser }) {
       </div>
       <ProductList products={newData} />
 
-      <div className="w-full flex justify-center gap-2 pb-4 pt-2">
-        <button
-          className="bg-orange-400 px-2 border border-black"
-          onClick={() => setSkip(0)}
-        >
-          1
-        </button>
-        <button
-          className="bg-orange-400 px-2 border border-black"
-          onClick={() => setSkip(30)}
-        >
-          2
-        </button>
-        <button
-          className="bg-orange-400 px-2 border border-black"
-          onClick={() => setSkip(60)}
-        >
-          3
-        </button>
-        <button
-          className="bg-orange-400 px-2 border border-black"
-          onClick={() => setSkip(90)}
-        >
-          4
-        </button>
-        <button
-          className="bg-orange-400 px-2 border border-black"
-          onClick={() => setSkip(120)}
-        >
-          5
-        </button>
+      <div className="w-full flex justify-center gap-2 pt-2 pb-3">
+        {[...Array(pages).keys()].map((item) => (
+          <button
+            className="bg-orange-400 px-2 border border-black"
+            onClick={() => {
+              setSkip(item * 30);
+            }}
+          >
+            {item + 1}
+          </button>
+        ))}
       </div>
     </div>
   )

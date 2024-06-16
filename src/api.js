@@ -22,7 +22,7 @@ if(limit){
     params,
   })
   .then(function(response){
-    return response.data.products;
+    return response.data;
   });
 }
 
