@@ -98,7 +98,7 @@ function ProductListPage({ setUser }) {
       </div>
       <ProductList products={newData} />
 
-      <div className="w-full flex justify-center gap-2">
+      <div className="w-full flex justify-center gap-2 pb-4 pt-2">
         <button
           className="bg-orange-400 px-2 border border-black"
           onClick={() => setSkip(0)}
