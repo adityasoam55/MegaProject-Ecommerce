@@ -3,19 +3,26 @@ import ProductList from './ProductList';
 import { getProductList } from './api';
 import { withUser } from "./withProvider";
 
-function ProductListPage({setUser}) {
+function ProductListPage({ setUser }) {
 
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("default")
   const [productList, setProductList] = useState([]);
+  const [skip, setSkip] = useState(0);
 
   useEffect(function () {
-    const xyz = getProductList();
+    let sortBy;
 
-    xyz.then(function (products) {
+    if(sort == "title"){
+      sortBy = "title";
+    } else if(sort == "price"){
+      sortBy = "price";
+    }
+
+    getProductList(sortBy, skip).then(function (products) {
       setProductList(products);
     })
-  }, [])
+  }, [sort, skip])
 
   let newData = productList.filter(function (item) {
     const title = item.title.toLowerCase();
@@ -24,15 +31,15 @@ function ProductListPage({setUser}) {
   })
 
 
-  if (sort == "price") {
-    newData.sort(function (x, y) {
-      return x.price - y.price;
-    })
-  } else if (sort == "name") {
-    newData.sort(function (x, y) {
-      return x.title < y.title ? -1 : 1;
-    })
-  }
+  // if (sort == "price") {
+  //   newData.sort(function (x, y) {
+  //     return x.price - y.price;
+  //   })
+  // } else if (sort == "name") {
+  //   newData.sort(function (x, y) {
+  //     return x.title < y.title ? -1 : 1;
+  //   })
+  // }
 
 
   // const handleSearch = useCallback(
@@ -44,7 +51,7 @@ function ProductListPage({setUser}) {
   // );
 
   function handleSearch(e) {
-    console.log("handle search running");
+    // console.log("handle search running");
     const newQuery = e.target.value.toLowerCase();
     setQuery(newQuery);
   }
@@ -57,7 +64,7 @@ function ProductListPage({setUser}) {
   // );
 
   function handleSort(e) {
-    console.log("sorting running");
+    // console.log("sorting running");
     setSort(e.target.value);
   }
 
@@ -83,13 +90,46 @@ function ProductListPage({setUser}) {
         >
           <option value="default">Default sort</option>
           <option value="price">Sort by Price</option>
-          <option value="name">Sort by Name</option>
+          <option value="title">Sort by Title</option>
         </select>
         <button className='bg-tomato-default px-0.5 rounded-md outline-none'
           onClick={handleLogout}
         >LogOut</button>
       </div>
       <ProductList products={newData} />
+
+      <div className="w-full flex justify-center gap-2">
+        <button
+          className="bg-orange-400 px-2 border border-black"
+          onClick={() => setSkip(0)}
+        >
+          1
+        </button>
+        <button
+          className="bg-orange-400 px-2 border border-black"
+          onClick={() => setSkip(30)}
+        >
+          2
+        </button>
+        <button
+          className="bg-orange-400 px-2 border border-black"
+          onClick={() => setSkip(60)}
+        >
+          3
+        </button>
+        <button
+          className="bg-orange-400 px-2 border border-black"
+          onClick={() => setSkip(90)}
+        >
+          4
+        </button>
+        <button
+          className="bg-orange-400 px-2 border border-black"
+          onClick={() => setSkip(120)}
+        >
+          5
+        </button>
+      </div>
     </div>
   )
 }
