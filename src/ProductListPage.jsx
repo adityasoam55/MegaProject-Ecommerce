@@ -2,14 +2,21 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import ProductList from './ProductList';
 import { getProductList } from './api';
 import { withUser } from "./withProvider";
+import { range } from 'lodash';
+import { Link, useSearchParams } from 'react-router-dom';
 
 function ProductListPage({ setUser }) {
 
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("default")
   const [productList, setProductList] = useState([]);
-  const [skip, setSkip] = useState(0);
-  const [pages, setPages] = useState();
+  const [pages, setPages] = useState(0);
+  
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialSkip = +(searchParams.get("skip") || 0);
+  const [skip, setSkip] = useState(initialSkip);
+
+  let page = Math.ceil(skip / 30);
 
   useEffect(function () {
     let sortBy;
@@ -27,34 +34,25 @@ function ProductListPage({ setUser }) {
     })
   }, [sort, skip])
 
-  let newData = productList.filter(function (item) {
-    const title = item.title.toLowerCase();
+  useEffect(() => {
+   const newSkip = +(searchParams.get("skip") || 0);
+   setSkip(newSkip);
+  }, [searchParams]);
 
-    return title.indexOf(query) != -1;
-  })
-
-
-  // if (sort == "price") {
-  //   newData.sort(function (x, y) {
-  //     return x.price - y.price;
-  //   })
-  // } else if (sort == "name") {
-  //   newData.sort(function (x, y) {
-  //     return x.title < y.title ? -1 : 1;
-  //   })
-  // }
-
-
+  const newData = useMemo(() => {
+    return productList.filter((item) => {
+      const title = item.title.toLowerCase();
+      // return title.indexOf(query) != -1;
+      return title.includes(query);
+    })
+  }, [productList, query])
 
   function handleSearch(e) {
-    // console.log("handle search running");
-    const newQuery = e.target.value.toLowerCase();
-    setQuery(newQuery);
+    setQuery(e.target.value.toLowerCase());
   }
 
 
   function handleSort(e) {
-    // console.log("sorting running");
     setSort(e.target.value);
   }
 
@@ -89,15 +87,17 @@ function ProductListPage({ setUser }) {
       <ProductList products={newData} />
 
       <div className="w-full flex justify-center gap-2 pt-2 pb-3">
-        {[...Array(pages).keys()].map((item) => (
-          <button
-            className="bg-orange-400 px-2 border border-black"
+        {range(0, pages).map((pageNo) => (
+          <Link
+            key={pageNo}
+            to={"?skip=" + (pageNo * 30)}
+            className={"px-2 border border-black " + (pageNo == page ? "bg-orange-400" : "bg-indigo-400")}
             onClick={() => {
-              setSkip(item * 30);
+              setSkip(pageNo * 30);
             }}
           >
-            {item + 1}
-          </button>
+            {pageNo + 1}
+          </Link>
         ))}
       </div>
     </div>
