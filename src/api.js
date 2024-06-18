@@ -1,12 +1,13 @@
 import axios from "axios";
 
-export function getProductList(sortBy, skip) {
+export function getProductList(sortBy, skip, order) {
 
 let params = {};
 let limit = 30;
 
 if(sortBy){
   params.sortBy = sortBy;
+  params.order = order;
 }
 
 if(skip){
