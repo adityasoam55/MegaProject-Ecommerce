@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import { getProductList } from "./api";
 import { withUser } from "./withProvider";
@@ -6,14 +6,21 @@ import { range } from "lodash";
 import { Link, useSearchParams } from "react-router-dom";
 
 function ProductListPage({ setUser }) {
-  const [query, setQuery] = useState("");
-  const [sort, setSort] = useState("default");
+  // const [q, setQ] = useState("");
+  // const [sort, setSort] = useState("default");
   const [productList, setProductList] = useState([]);
   const [pages, setPages] = useState(0);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialSkip = +(searchParams.get("skip") || 0);
-  const [skip, setSkip] = useState(initialSkip);
+  const params = Object.fromEntries([...searchParams]);
+  let { q, sort, skip } = params;
+
+  q = q || "";
+  sort = sort || "default";
+  skip = skip || 0;
+
+  // const initialSkip = +(searchParams.get("skip") || 0);
+  // const [skip, setSkip] = useState(initialSkip);
 
   let page = Math.ceil(skip / 30);
 
@@ -31,34 +38,30 @@ function ProductListPage({ setUser }) {
         order = "desc";
       }
 
-      getProductList(sortBy, skip, order).then(function (body) {
+      getProductList(q, sortBy, skip, order).then(function (body) {
         let p = Math.ceil(body.total / 30);
         setPages(p);
         setProductList(body.products);
       });
     },
-    [sort, skip],
+    [sort, skip, q],
   );
 
   useEffect(() => {
     const newSkip = +(searchParams.get("skip") || 0);
-    setSkip(newSkip);
+    // setSkip(newSkip);
+    skip = newSkip;
   }, [searchParams]);
 
-  const newData = useMemo(() => {
-    return productList.filter((item) => {
-      const title = item.title.toLowerCase();
-      // return title.indexOf(query) != -1;
-      return title.includes(query);
-    });
-  }, [productList, query]);
-
   function handleSearch(e) {
-    setQuery(e.target.value.toLowerCase());
+    setSearchParams(
+      { ...params, q: e.target.value.toLowerCase(), skip: 0 },
+      { replace: false },
+    );
   }
 
   function handleSort(e) {
-    setSort(e.target.value);
+    setSearchParams({ ...params, sort: e.target.value }, { replace: false });
   }
 
   function handleLogout() {
@@ -74,7 +77,7 @@ function ProductListPage({ setUser }) {
           className="border border-black rounded-sm pl-3 outline-none"
           type="text"
           placeholder="search"
-          value={query}
+          value={q}
           onChange={handleSearch}
         />
         <select
@@ -89,19 +92,19 @@ function ProductListPage({ setUser }) {
           <option value="highToLow">Price:HighToLow</option>
         </select>
         <button
-          className="bg-tomato-default px-0.5 rounded-md outline-none"
+          className="bg-tomato-default rounded-md outline-none border border-black px-1"
           onClick={handleLogout}
         >
           LogOut
         </button>
       </div>
-      <ProductList products={newData} />
+      <ProductList products={productList} />
 
       <div className="w-full flex justify-center gap-2 pt-2 pb-3">
         {range(0, pages).map((pageNo) => (
           <Link
             key={pageNo}
-            to={"?skip=" + pageNo * 30}
+            to={"?" + new URLSearchParams({ ...params, skip: pageNo * 30 })}
             className={
               "px-2 border border-black " +
               (pageNo == page ? "bg-orange-400" : "bg-indigo-400")

@@ -1,30 +1,28 @@
 import axios from "axios";
 
-export function getProductList(sortBy, skip, order) {
+export function getProductList(q, sortBy, skip, order) {
+  let params = {};
 
-let params = {};
-let limit = 30;
+  if (q) {
+    params.q = q;
+  }
 
-if(sortBy){
-  params.sortBy = sortBy;
-  params.order = order;
-}
+  if (sortBy) {
+    params.sortBy = sortBy;
+    params.order = order;
+  }
 
-if(skip){
-  params.skip = skip;
-}
-
-if(limit){
-  params.limit = limit;
-}
+  if (skip) {
+    params.skip = skip;
+  }
 
   return axios
-  .get("https://dummyjson.com/products", {
-    params,
-  })
-  .then(function(response){
-    return response.data;
-  });
+    .get("https://dummyjson.com/products/search", {
+      params,
+    })
+    .then(function (response) {
+      return response.data;
+    });
 }
 
 export function getProductData(id) {
