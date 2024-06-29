@@ -65,7 +65,7 @@ function ProductDetails({ onAddToCart }) {
 
             <div className='flex gap-5'>
                 {id > 1 && <Link to={"/products/" + (id - 1)} className='text-blue-500 hover:underline'>Prev</Link>}
-                {id < 100 && <Link to={"/products/" + (id + 1)} className='text-blue-500 hover:underline'>Next</Link>}
+                {id < 196 && <Link to={"/products/" + (id + 1)} className='text-blue-500 hover:underline'>Next</Link>}
             </div>
         </div>
     );
